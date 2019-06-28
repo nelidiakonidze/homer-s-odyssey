@@ -2,11 +2,10 @@ import React from 'react';
 import './App.css';
 
 export default class SignUp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = email;
-  }
-
+  // constructor(props) {
+  //   super(props);
+  //   this.state = email;
+  // }
   render() {
     return (
       <div>
