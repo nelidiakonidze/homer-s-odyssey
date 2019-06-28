@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
   // constructor(props) {
   //   super(props);
   //   this.state = email;
@@ -21,3 +21,5 @@ export default class SignUp extends Component {
     );
   }
 }
+
+export default SignUp;
