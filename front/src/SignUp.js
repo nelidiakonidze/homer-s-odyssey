@@ -7,6 +7,7 @@ class SignUp extends React.Component {
     this.state = {
       email: '',
       password: '',
+      verificationPassword: '',
       name: '',
       lastName: '',
     };
@@ -42,6 +43,13 @@ class SignUp extends React.Component {
             type='text'
             value={this.state.value}
             name='password'
+            onChange={this.handleChange}
+          />
+          <label>Verification password</label>
+          <input
+            type='text'
+            value={this.state.value}
+            name='verificationPassword'
             onChange={this.handleChange}
           />
           <label>name</label>
