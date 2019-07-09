@@ -11,16 +11,10 @@ router.get('/users', function(req, res) {
 });
 
 router.post('/signup', function(req, res) {
-  // const rowData = req.body;
-  // const newUser = {
-  //   email: rowData.email,
-  //   password: rowData.password,
-  //   name: rowData.name,
-  //   lastname: rowData.lastname,
-  // };
 
   const {flash, ...newUser} = req.body;
-  //console.log(rowData);
+
+  // console.log(rowData);
   connection.query('INSERT INTO `users` SET ?', newUser, (err, results) => {
     // connection.release();
     if (err) {
@@ -29,7 +23,7 @@ router.post('/signup', function(req, res) {
       res.status(500).json({flash: error.message});
     } else {
       // If everything went well, we send a status "ok".
-      res.sendStatus(200).json({flash: 'User has been signed up!'});
+      res.status(200).json({flash: 'User has been signed up!'});
     }
   });
 });

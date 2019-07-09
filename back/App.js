@@ -11,7 +11,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
-app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send('youhou');
@@ -19,6 +18,8 @@ app.get('/', (req, res) => {
 app.post('/', function(req, res) {
   res.send('POST request to the homepage');
 });
+
+app.use('/auth', authRouter);
 
 /// in case of a not found path, I return the 'Not Found' 404 code
 app.use(function(req, res, next) {
