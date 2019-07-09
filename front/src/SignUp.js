@@ -7,23 +7,36 @@ class SignUp extends React.Component {
     this.state = {
       email: '',
       password: '',
-      verificationPassword: '',
       name: '',
-      lastName: '',
+      lastname: '',
+      flash: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleChange(e) {
+    this.setState({[e.target.name]: e.target.value});
+  }
+
   handleSubmit(event) {
     alert('Your form was submitted!');
     event.preventDefault();
     console.log(this.state);
-  }
-
-  handleChange(e) {
-    this.setState({[e.target.name]: e.target.value});
+    
+    fetch('/auth/signup', {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify(this.state),
+    })
+      .then(res => res.json())
+      .then(
+        res => this.setState({flash: res.flash}),
+        error => this.setState({flash: error.flash}),
+      );
   }
 
   render() {
@@ -34,36 +47,29 @@ class SignUp extends React.Component {
           <label>email</label>
           <input
             type='email'
-            value={this.state.value}
+            value={this.state.email}
             name='email'
             onChange={this.handleChange}
           />
           <label>password</label>
           <input
             type='text'
-            value={this.state.value}
+            value={this.state.password}
             name='password'
-            onChange={this.handleChange}
-          />
-          <label>Verification password</label>
-          <input
-            type='text'
-            value={this.state.value}
-            name='verificationPassword'
             onChange={this.handleChange}
           />
           <label>name</label>
           <input
             type='text'
-            value={this.state.value}
+            value={this.state.name}
             name='name'
             onChange={this.handleChange}
           />
           <label>lastName</label>
           <input
             type='text'
-            value={this.state.value}
-            name='lastName'
+            value={this.state.lastname}
+            name='lastname'
             onChange={this.handleChange}
           />
           <input type='submit' value='Submit' />
