@@ -11,7 +11,6 @@ router.get('/users', function(req, res) {
 });
 
 router.post('/signup', function(req, res) {
-
   const {flash, ...newUser} = req.body;
 
   // console.log(rowData);
@@ -20,7 +19,7 @@ router.post('/signup', function(req, res) {
     if (err) {
       // the user is informed of the error
       console.log(err);
-      res.status(500).json({flash: error.message});
+      res.status(500).json({flash: err.message});
     } else {
       // If everything went well, we send a status "ok".
       res.status(200).json({flash: 'User has been signed up!'});
