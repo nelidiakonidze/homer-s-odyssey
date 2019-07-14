@@ -4,7 +4,11 @@ import {MuiThemeProvider} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import SignUp from './SignUp';
+import SignIn from './SingIn';
 import './index.css';
+import Profile from './Profile';
+import {BrowserRouter as Switch, Route} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 function App() {
   return (
@@ -22,7 +26,14 @@ function App() {
                 sm={6}
                 alignContent='center'
                 style={{padding: '3rem'}}>
-                <SignUp />
+                <BrowserRouter>
+                  <Switch>
+                    <Route exact path='/' component={SignIn} />
+                    <Route path='/signin' component={SignIn} />
+                    <Route path='/signup' component={SignUp} />
+                    <Route path='/profile' component={Profile} />
+                  </Switch>
+                </BrowserRouter>
               </Grid>
             </Grid>
           </Paper>

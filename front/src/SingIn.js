@@ -4,19 +4,16 @@ import './SignUp.css';
 import {Link} from 'react-router-dom';
 import {Redirect} from 'react-router';
 import PasswordInput from './components/PasswordInput';
-import EmailInput from './components/EmailInput';
 
-class SignUp extends React.Component {
+class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      name: '',
-      lastname: '',
       flash: '',
       open: false,
-      toHome: false,
+      toProfile: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,18 +31,16 @@ class SignUp extends React.Component {
     console.log(this.state);
     this.setState({open: true});
 
-    const {email, password, name, lastname} = this.state;
+    const {email, password} = this.state;
 
     // Validate fields before sending to BE.
 
     const payload = {
       email,
       password,
-      name,
-      lastname,
     };
 
-    fetch('/auth/signup', {
+    fetch('/auth/signin', {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -59,11 +54,12 @@ class SignUp extends React.Component {
             flash: res.flash,
             email: '',
             password: '',
-            name: '',
-            lastname: '',
-            toHome: true,
+            toProfile: true,
           }),
-        error => this.setState({flash: error.flash}),
+        error =>
+          this.setState({
+            flash: error.flash ? error.flash : 'Something wrong happened!',
+          }),
       );
   }
 
@@ -72,13 +68,13 @@ class SignUp extends React.Component {
   }
 
   render() {
-    if (this.state.toHome === true) {
-      return <Redirect to='/' />;
+    if (this.state.toProfile === true) {
+      return <Redirect to='/profile' />;
     }
     return (
       <React.Fragment>
         <div>
-          <h1>Sign up!</h1>
+          <h1>Sign In!</h1>
           <form
             onSubmit={this.handleSubmit}
             style={{
@@ -87,27 +83,16 @@ class SignUp extends React.Component {
               flexDirection: 'column',
               margin: '10px',
             }}>
-            <EmailInput
-              email={this.state.email}
-              handleChange={this.handleChange}
+            <label>Email</label>
+            <TextField
+              type='email'
+              value={this.state.email}
+              name='email'
+              onChange={this.handleChange}
             />
             <PasswordInput
               password={this.state.password}
               handleChange={this.handleChange}
-            />
-            <label>Name</label>
-            <TextField
-              type='text'
-              value={this.state.name}
-              name='name'
-              onChange={this.handleChange}
-            />
-            <label>Last name</label>
-            <TextField
-              type='text'
-              value={this.state.lastname}
-              name='lastname'
-              onChange={this.handleChange}
             />
             <Button
               type='submit'
@@ -120,9 +105,9 @@ class SignUp extends React.Component {
                 display: 'flex',
                 alignSelf: 'flex-end',
               }}>
-              Sign up
+              Sign In
             </Button>
-            <Link to='/signin'>Go to Sign In</Link>
+            <Link to='/signup'>Go to Sign Up</Link>
           </form>
           <Snackbar
             anchorOrigin={{
@@ -143,4 +128,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default SignIn;
